@@ -2,6 +2,28 @@
 <html>
   <head>
     <title>Time-Lapse Wireless Access</title>
+    <script>
+      var IPaddress = "";
+      function refreshLive() {
+        document.getElementById("livestream").src = "http://192.168.1.86:8000/live.jpg?randGet=" + Math.random().toString();
+      }
+      function refreshImg() {
+        document.getElementById("img").src = "http://192.168.1.86:8000/" + document.getElementById("weekDay").value + "/tl" + document.getElementById("imgNumber").value + "jpg?randGet=" + Math.random().toString();
+      }
+      function livestreamSetup() {
+        window.setInterval("refreshLive()", 20000);
+      }
+    </script>
   </head>
-  <body>Page not finished.  :(</body>
+  <body>
+    <h1>Time-Lapse Wireless Access</h1>
+    <p>Live View: </p>
+    <button onclick="refreshLive()">Refresh</button>
+    <img id="livestream" src="http://192.168.1.86:8000/live.jpg?randGet=0" onload="livestreamSetup()"/><br><br>
+    <h1>Time-Lapse Wireless Access</h1>
+    <p>Get image: </p>
+    <input type="text" id="weekDay" value="mon" onupdate="refreshImg()">
+    <input type="text" id="imgNumber" value="0000" onupdate="refreshImg()">
+    <img id="img" src="http://192.168.1.86:8000/live.jpg?randGet=1"/><br><br>
+  </body>
 </html>
