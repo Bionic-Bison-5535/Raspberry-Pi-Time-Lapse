@@ -81,4 +81,5 @@ function writeToFile(fileDirectory, fileNewData) {
     console.log("  -  Attempted to access: " + fileDirectory);
     console.log("  -  Attempted to write:  " + fileNewData);
     console.log("");
+  }
 }
