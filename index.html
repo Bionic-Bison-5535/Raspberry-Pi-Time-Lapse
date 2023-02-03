@@ -45,7 +45,7 @@
     <label for="imgNumber">Image Number (remove value to get most recent image in folder): </label>
     <input type="number" id="imgNumber" value="0000" min="0000" max="9990" oninput="refreshImg()"><br>
     <button onclick="refreshImg()">Refresh</button>
-    <a id="downloadButton" href="http://10.10.0.62:7777/sat/image0000.jpg" target="_blank" download><button>Download Image</button></a>
+    <a id="downloadButton" href="http://10.10.0.62:7777/sat/image0000.jpg" target="_blank"><button>Open in New Tab</button></a>
     <br><br>
     <img id="img" src="http://10.10.0.62:7777/sat/image0000.jpg" onload="refreshImg()" width="100%"/><br><br>
   </body>
