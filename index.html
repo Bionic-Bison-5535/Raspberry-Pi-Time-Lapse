@@ -4,13 +4,13 @@
   <head>
     <title>Time-Lapse Wireless Image Access</title>
     <script>
-      let socket = new Websocket("ws://10.10.0.25:8001");
+      let socket = new Websocket("ws://10.10.0.62:8001");
       var mostRecent = 0;
       function refreshImg() {
         if (document.getElementById("imgNumber").value.toString() == "") {
-          document.getElementById("img").src = "http://10.10.0.25:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + mostRecent.toString() + ".jpg";
+          document.getElementById("img").src = "http://10.10.0.62:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + mostRecent.toString() + ".jpg";
         } else {
-          document.getElementById("img").src = "http://10.10.0.25:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + document.getElementById("imgNumber").value.toString() + ".jpg";
+          document.getElementById("img").src = "http://10.10.0.62:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + document.getElementById("imgNumber").value.toString() + ".jpg";
         }
       }
       function periodic() {
@@ -39,6 +39,6 @@
     <input type="number" id="imgNumber" value="0000" min="0000" max="9990" oninput="refreshImg()"><br>
     <button onclick="refreshImg()">Refresh</button>
     <br><br>
-    <img id="img" src="http://10.10.0.25:7777/sat/image0000.jpg" onload="refreshImg()" width="100%"/><br><br>
+    <img id="img" src="http://10.10.0.62:7777/sat/image0000.jpg" onload="refreshImg()" width="100%"/><br><br>
   </body>
 </html>
