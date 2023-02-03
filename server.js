@@ -60,8 +60,31 @@ http.createServer(function (req, res) {
   });
 }).listen(8001);
 
+function four(Num) {
+    var newNum = Num;
+    while (newNum.length < 4) {
+        newNum = "0" + newNum;
+    }
+    return newNum;
+}
+
 function mostRecentPhotoNumber(basePhotoName, folderOfPhoto) {
-  return 0; // not finished
+  var i = 0;
+  var thisWorked = false;
+  while (thisWorked == false && i < 10000) {
+    fs.readFile(timeLapseDirectory + "/" + folderOfPhoto + "/" + basePhotoName + four(i.toString()) + ".jpg", function (err, data) {
+      if (err) {
+        i++;
+      } else {
+        thisWorked = true;
+      }
+    });
+  }
+  if (thisWorked) {
+    return i;
+  } else {
+    return 0;
+  }
 }
 
 function writeToFile(fileDirectory, fileNewData) {
