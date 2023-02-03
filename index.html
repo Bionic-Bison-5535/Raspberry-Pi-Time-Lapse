@@ -2,6 +2,38 @@
 <html>
   <head>
     <title>Time-Lapse Wireless Image Access</title>
+    <style>
+      body {
+        background-image: linear-gradient(90deg, rgb(5, 175, 5), rgb(32, 97, 255));
+        text-align: center;
+      }
+      h1 {
+        font-family: sans-serif;
+        font-weight: 700;
+        color: yellow;
+        background-color: #0003;
+        padding: 7px;
+        border-radius: 40px;
+      }
+      label {
+        font-family: fantasy;
+        color: white;
+      }
+      input, button {
+        font-family: monospace;
+        color: yellow;
+        background-image: linear-gradient(cyan, cornflowerblue);
+        text-align: center;
+        padding: 4px;
+        border-radius: 20px;
+        border-color: rgb(82, 177, 255);
+        border-style: solid;
+        border-width: 3px;
+      }
+      input:hover, button:hover {
+        cursor: pointer;
+      }
+    </style>
     <script>
       let socket = new WebSocket("ws://10.10.0.62:8001");
       var mostRecent = 0;
@@ -39,11 +71,11 @@
   <body onload="init()">
     <h1>Time-Lapse Wireless Access</h1>
     <label for="name">Timelapse Name: </label>
-    <input type="text" id="name" value="image" oninput="refreshImg()"><br>
-    <label for="weekDay">Day of Week (three letter abbreviation): </label>
-    <input type="text" id="weekDay" value="sat" oninput="refreshImg()"><br>
+    <input type="text" id="name" value="image" oninput="refreshImg()" size="20"><br>
+    <label for="weekDay">Day of Week: </label>
+    <input type="text" id="weekDay" value="sat" oninput="refreshImg()" size="4"><br>
     <label for="imgNumber">Image Number (remove value to get most recent image in folder): </label>
-    <input type="number" id="imgNumber" value="0000" min="0000" max="9990" oninput="refreshImg()"><br>
+    <input type="number" id="imgNumber" value="0" min="0" max="9000" oninput="refreshImg()"><br>
     <button onclick="refreshImg()">Refresh</button>
     <a id="downloadButton" href="http://10.10.0.62:7777/sat/image0000.jpg" target="_blank"><button>Open in New Tab</button></a>
     <br><br>
