@@ -4,13 +4,20 @@
   <head>
     <title>Time-Lapse Wireless Image Access</title>
     <script>
-      let socket = new Websocket("ws://10.10.0.62:8001");
+      let socket = new WebSocket("ws://10.10.0.62:8001");
       var mostRecent = 0;
+      function four(Num) {
+        var newNum = Num;
+        while (newNum.length < 4) {
+          newNum = "0" + newNum;
+        }
+        return newNum;
+      }
       function refreshImg() {
         if (document.getElementById("imgNumber").value.toString() == "") {
-          document.getElementById("img").src = "http://10.10.0.62:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + mostRecent.toString() + ".jpg";
+          document.getElementById("img").src = "http://10.10.0.62:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + four(mostRecent.toString()) + ".jpg";
         } else {
-          document.getElementById("img").src = "http://10.10.0.62:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + document.getElementById("imgNumber").value.toString() + ".jpg";
+          document.getElementById("img").src = "http://10.10.0.62:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + four(document.getElementById("imgNumber").value.toString()) + ".jpg";
         }
       }
       function periodic() {
