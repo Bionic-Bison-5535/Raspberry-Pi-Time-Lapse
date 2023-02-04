@@ -13,7 +13,7 @@
         color: yellow;
         background-color: #0003;
         padding: 7px;
-        border-radius: 40px;
+        border-radius: 12px;
       }
       label {
         font-family: fantasy;
@@ -24,7 +24,7 @@
         color: yellow;
         background-image: linear-gradient(cyan, cornflowerblue);
         text-align: center;
-        padding: 4px;
+        padding: 7px;
         border-radius: 20px;
         border-color: rgb(82, 177, 255);
         border-style: solid;
@@ -32,6 +32,9 @@
       }
       input:hover, button:hover {
         cursor: pointer;
+      }
+      img {
+        border-radius: 12px;
       }
     </style>
     <script>
@@ -71,7 +74,7 @@
   <body onload="init()">
     <h1>Time-Lapse Wireless Access</h1>
     <label for="name">Timelapse Name: </label>
-    <input type="text" id="name" value="image" oninput="refreshImg()" size="20"><br>
+    <input type="text" id="name" value="image" oninput="refreshImg()" size="10"><br>
     <label for="weekDay">Day of Week: </label>
     <input type="text" id="weekDay" value="sat" oninput="refreshImg()" size="4"><br>
     <label for="imgNumber">Image Number (remove value to get most recent image in folder): </label>
