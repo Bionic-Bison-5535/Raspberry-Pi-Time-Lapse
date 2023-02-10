@@ -38,8 +38,6 @@
       }
     </style>
     <script>
-      let socket = new WebSocket("ws://10.10.0.62:8001");
-      var mostRecent = 0;
       function four(Num) {
         var newNum = Num;
         while (newNum.length < 4) {
@@ -48,30 +46,12 @@
         return newNum;
       }
       function refreshImg() {
-        if (document.getElementById("imgNumber").value.toString() == "") {
-          document.getElementById("img").src = "http://10.10.0.62:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + four(mostRecent.toString()) + ".jpg";
-        } else {
-          document.getElementById("img").src = "http://10.10.0.62:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + four(document.getElementById("imgNumber").value.toString()) + ".jpg";
-        }
-        document.getElementById("downloadButton").href = document.getElementById("img").src;
+        document.getElementById("img").src = "http://10.10.0.62:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + four(document.getElementById("imgNumber").value.toString()) + ".jpg";
+        document.getElementById("openInNewTab").href = document.getElementById("img").src;
       }
-      function periodic() {
-        if (document.getElementById("imgNumber").value.toString() == "") {
-          socket.send(JSON.stringify(["getMostRecent", document.getElementById("name").value, document.getElementById("weekDay").value]));
-        }
-      }
-      function init() {
-        window.setInterval("periodic()", 10000);
-      }
-      socket.onmessage = function(event) {
-        mostRecent = parseInt(event.data);
-      };
-      socket.onerror = function(err) {
-        alert(`There was a strange error in the server connection:\n ${err.message}`);
-      };
     </script>
   </head>
-  <body onload="init()">
+  <body>
     <h1>Time-Lapse Wireless Access</h1>
     <label for="name">Timelapse Name: </label>
     <input type="text" id="name" value="image" oninput="refreshImg()" size="10"><br>
@@ -80,7 +60,7 @@
     <label for="imgNumber">Image Number (remove value to get most recent image in folder): </label>
     <input type="number" id="imgNumber" value="0" min="0" max="9000" oninput="refreshImg()"><br>
     <button onclick="refreshImg()">Refresh</button>
-    <a id="downloadButton" href="http://10.10.0.62:7777/sat/image0000.jpg" target="_blank"><button>Open in New Tab</button></a>
+    <a id="openInNewTab" href="http://10.10.0.62:7777/sat/image0000.jpg" target="_blank"><button>Open in New Tab</button></a>
     <br><br>
     <img id="img" src="http://10.10.0.62:7777/sat/image0000.jpg" onload="refreshImg()" width="100%"/><br><br>
   </body>
