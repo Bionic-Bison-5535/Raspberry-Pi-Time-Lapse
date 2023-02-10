@@ -48,10 +48,21 @@
       function refreshImg() {
         document.getElementById("img").src = "http://10.10.230.89:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + four(document.getElementById("imgNumber").value.toString()) + ".jpg";
         document.getElementById("openInNewTab").href = document.getElementById("img").src;
+        localStorage.imageName = document.getElementById("name").value;
+        localStorage.imageWeekDay = document.getElementById("weekDay").value;
+        localStorage.imageNumber = document.getElementById("imgNumber").value;
+      }
+      function init() {
+        if (localStorage.imageName != undefined) {
+          document.getElementById("name").value = localStorage.imageName;
+          document.getElementById("weekDay").value = localStorage.imageWeekDay;
+          document.getElementById("imgNumber").value = localStorage.imageNumber;
+          refreshImg();
+        }
       }
     </script>
   </head>
-  <body>
+  <body onload="init()">
     <h1>Time-Lapse Wireless Access</h1>
     <label for="name">Timelapse Name: </label>
     <input type="text" id="name" value="image" oninput="refreshImg()" size="10"><br>
