@@ -35,6 +35,7 @@
       }
       img {
         border-radius: 12px;
+        width: 100%;
       }
     </style>
     <script>
@@ -72,7 +73,7 @@
     <input type="number" id="imgNumber" value="0" min="0" max="9000" oninput="refreshImg()" title='Which picture of the time lapse you are trying to get.  Each picture is in 4K, so it may take a few seconds to load.  Use "0" to get the first image in the time lapse, "1" to get the second, and so on.'><br>
     <button onclick="refreshImg()">Refresh</button>
     <a id="openInNewTab" href="" target="_blank"><button title="Click this button to open the photo below in a new tab that will allow you to easily zoom in on the image's details.">Open in New Tab</button></a>
+    <img id="img" src="./live.jpg"/>
     <br><br>
-    <img id="img" src="" onload="refreshImg()" width="100%"/><br><br>
   </body>
 </html>
