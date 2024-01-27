@@ -44,7 +44,7 @@ function photo(fileName = "") {
 }
 
 var running = setInterval(function() {
-  if ((normalDays.list.includes(Date.call().slice(0,3)) && time.get() > time.a(normalDays) && time.get() < time.b(normalDays)) || (otherDays.list.includes(Date.call().slice(0,3)) && time.get() > time.a(otherDays) && time.get() < time.b(otherDays))) {
+  if ((normalDays.list.includes(Date.call().slice(0,3)) && time.get() >= time.a(normalDays) && time.get() <= time.b(normalDays)) || (otherDays.list.includes(Date.call().slice(0,3)) && time.get() >= time.a(otherDays) && time.get() <= time.b(otherDays))) {
     photo();
   }
 }, 60000);
