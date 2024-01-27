@@ -39,28 +39,112 @@
       }
     </style>
     <script>
-      function four(Num) {
-        var newNum = Num;
-        while (newNum.length < 4) {
-          newNum = "0" + newNum;
+
+      var months = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      var vid = [];
+      
+      function imgname(timeInput) {
+        return "./" + months[parseInt(timeInput.slice(5,7))] + "_" + timeInput.slice(8,10) + "_" + timeInput.slice(0,4) + "_" + timeInput.slice(11,13) + ":" + timeInput.slice(14,16) + ".jpg";
+      }
+
+      function $(elementID) {
+        return document.getElementById(elementID);
+      }
+
+      function img64(Url, Then = function(base64img){}, Err = function(statusCode){}) {
+        var x = new XMLHttpRequest();
+        x.open("GET", Url);
+        x.responseType = "blob";
+        x.send();
+        x.onload = function() {
+          if (this.status != 200) {
+            Err(this.status);
+          } else {
+            var reader = new FileReader();
+            reader.readAsDataURL(x.response); 
+            reader.onloadend = function() {
+              Then(reader.result);
+            };
+          }
+        };
+      }
+      
+      function getImg() {
+        var input = $("single-input").value;
+        $("img").src = imgname(input);
+      }
+
+      function digits2(n) {
+        if (n < 10) {
+          return "0" + n.toString();
+        } else {
+          return n.toString();
         }
-        return newNum;
       }
-      function refreshImg() {
-        document.getElementById("img").src = "http://10.10.230.89:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + four(document.getElementById("imgNumber").value.toString()) + ".jpg";
-        document.getElementById("openInNewTab").href = document.getElementById("img").src;
-        localStorage.imageName = document.getElementById("name").value;
-        localStorage.imageWeekDay = document.getElementById("weekDay").value;
-        localStorage.imageNumber = document.getElementById("imgNumber").value;
-      }
-      function init() {
-        if (localStorage.imageName != undefined) {
-          document.getElementById("name").value = localStorage.imageName;
-          document.getElementById("weekDay").value = localStorage.imageWeekDay;
-          document.getElementById("imgNumber").value = localStorage.imageNumber;
-          refreshImg();
+
+      function progress1() {
+        $("loading").value += 1;
+        if ($("loading").value >= $("loading").max) {
+          $("progressbar").display = 'none';
         }
       }
+
+      function getVid() {
+        var startHour = parseInt($("startTime").value.slice(0,2));
+        var startMin = parseInt($("startTime").value.slice(3,5));
+        var endHour = parseInt($("endTime").value.slice(0,2));
+        var endMin = parseInt($("endTime").value.slice(3,5));
+        var pics = 60*(endHour - startHour) + (endMin - startMin);
+        $("loading").value = 0;
+        $("loading").max = pics + 1;
+        $("progressbar").display = '';
+        vid = [];
+        var hour = startHour;
+        var min = startMin;
+        for (i=0; i<=pics; i++) {
+          vid[i] = imgname($("timelapse-day").value + "T" + digits2(hour) + ":" + digits2(min));
+          eval("img64(vid[i],function(data){vid["+i.toString()+"]=data;progress1()},function(){vid["+i.toString()+"]='';progress1()})");
+          min++;
+          if (min >= 60) {
+            min -= 60;
+            hour++;
+          }
+        }
+      }
+
+      var vidIndex = 0;
+      var playing = -1;
+      var fps = 5;
+
+      function back() {
+        vidIndex--;
+        if (vid[vidIndex].length > 0) {
+          $("img").src = vid[vidIndex];
+        }
+        if (vidIndex < 0) {
+          vidIndex = 0;
+        }
+      }
+
+      function next() {
+        vidIndex++;
+        if (vid[vidIndex].length > 0) {
+          $("img").src = vid[vidIndex];
+        }
+        if (vidIndex >= vid.length) {
+          vidIndex = vid.length - 1;
+        }
+      }
+
+      function playpause() {
+        if (playing == 0) { // Play
+          playing = setInterval(function() {next()}, 1000/fps);
+        } else {
+          clearInterval(playing);
+          playing = 0;
+        }
+      }
+
     </script>
   </head>
   <body onload="init()">
