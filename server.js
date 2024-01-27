@@ -2,7 +2,7 @@ const fs = require('fs');
 const http = require('http');
 const shell = require('shelljs');
 
-const directory = "/home/pi/Desktop/Timelapse";
+const directory = "/home/BisonPi/Desktop/Timelapse";
 var RES;
 
 var normalDays = {
