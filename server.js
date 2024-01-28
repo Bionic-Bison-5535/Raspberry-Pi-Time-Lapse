@@ -82,11 +82,11 @@ http.createServer(function (req, res) {
       }
     });
   }
-  if (dir.indexOf('?') != -1) {
-    if (dir.toLowerCase().indexOf("?stop") != -1) {
+  if (req.url.indexOf('?') != -1) {
+    if (req.url.toLowerCase().indexOf("?stop") != -1) {
       clearInterval(running);
     }
-    if (dir.toLowerCase().indexOf("?start") != -1) {
+    if (req.url.toLowerCase().indexOf("?start") != -1) {
       clearInterval(running);
       running = setInterval(function() {
         if ((normalDays.list.includes(Date.call().slice(0,3)) && time.get > time.a(normalDays) && time.get < time.b(normalDays)) || (otherDays.list.includes(Date.call().slice(0,3)) && time.get > time.a(otherDays) && time.get < time.b(otherDays))) {
@@ -94,13 +94,13 @@ http.createServer(function (req, res) {
         }
       }, 60000);
     }
-    if (dir.toLowerCase().indexOf("?shutdown"+shutdownpassword) != -1) {
+    if (req.url.toLowerCase().indexOf("?shutdown"+shutdownpassword) != -1) {
       shell.exec("sudo shutdown -h now");
     }
-    if (dir.toLowerCase().indexOf("?reboot") != -1) {
+    if (req.url.toLowerCase().indexOf("?reboot") != -1) {
       shell.exec("sudo reboot");
     }
-    if (dir.toLowerCase().indexOf("?pic") != -1) {
+    if (req.url.toLowerCase().indexOf("?pic") != -1) {
       photo();
     }
   }
