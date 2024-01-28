@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Robotics Time-Lapse</title>
+    <title>Robotics Time-lapse</title>
     <style>
       body {
         background-color: blue;
@@ -235,20 +235,20 @@
     </script>
   </head>
   <body>
-    <h1>R⬣b⬣tics Time-Lapse Wireless Access</h1>
+    <h1>R⬣b⬣tics Time-lapse Wireless Access</h1>
     <section id="single">
       <h2>Retrieve Single Image</h2><br>
       <input type="datetime-local" id="single-input"><br>
       <button onclick="getImg()">Load Image</button>
     </section>
     <section id="multiple">
-      <h2>Retrieve Time-Lapse Video</h2>
+      <h2>Retrieve Time-lapse Video</h2>
       <input type="date" id="timelapse-day"><br>
       <label for="startTime">From</label>
       <input type="time" id="startTime" oninput="$('endTime').focus()">
       <nobr><label for="endTime">to</label>
       <input type="time" id="endTime"><br></nobr>
-      <button onclick="getVid()">Load Timelapse</button>
+      <button onclick="getVid()">Load Time-lapse</button>
     </section>
     <br><br>
     <img id="img" src="./live.jpg">
@@ -260,7 +260,7 @@
       <input type="range" min="0" max="120" value="0" id="videoProgress" oninput="goToFrame(this.value)">
     </section>
     <section id="progressbar">
-      <label id="loadingLabel" for="loading">Loading Timelapse.... </label>
+      <label id="loadingLabel" for="loading">Loading Time-lapse.... </label>
       <progress id="loading" max="120" val="0"></progress>
     </section>
   </body>
