@@ -65,7 +65,7 @@ http.createServer(function (req, res) {
           RES.end(data);
         }
       });
-    }, 2000);
+    }, 5000);
   } else {
     if (dir.length < 3) {
       dir = "/home/pi/index.html";
