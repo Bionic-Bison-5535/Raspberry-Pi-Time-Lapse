@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Robotics Time-Lapse</title>
     <style>
       body {
@@ -19,8 +20,9 @@
         padding: 7px;
         border-radius: 20px;
         margin-top: 0px;
+        text-shadow: 2px 1px 0px black;
       }
-      input, button {
+      input:not([type="range"]), button {
         font-family: 'Trebuchet MS', sans-serif;
         font-size: 14px;
         color: white;
@@ -37,7 +39,7 @@
         margin: 3.5px;
         outline: none;
       }
-      input:hover, input:focus, button:hover {
+      input:not([type="range"]):hover, input:not([type="range"]):focus, button:hover {
         cursor: pointer;
         box-shadow: 0px 0px 17px yellow;
         border-color: yellow;
@@ -46,6 +48,10 @@
         cursor: progress;
         box-shadow: none;
         border-color: orange;
+      }
+      #timelapseCTRL {
+        width: 95%;
+        max-width: 850px;
       }
       #timelapseCTRL button {
         font-size: 40px;
@@ -60,7 +66,7 @@
       img {
         border-radius: 20px;
         width: 95%;
-        max-width: 900px;
+        max-width: 850px;
       }
       section {
         display:inline-table;
@@ -80,7 +86,8 @@
         display: none;
       }
       #single, #multiple {
-        width: 400px;
+        width: 90%;
+        max-width: 400px;
         height: 230px;
       }
     </style>
@@ -203,22 +210,29 @@
         }
       }
 
+      function goToFrame(frameNumber) {
+        if (frameNumber >= 0 && frameNumber < vid.length) {
+          vidIndex = frameNumber;
+          $("img").src = vid[vidIndex];
+        }
+      }
+
     </script>
   </head>
   <body>
-    <h1>Robotics Time-Lapse Wireless Access</h1>
+    <h1>R⬣b⬣tics Time-Lapse Wireless Access</h1>
     <section id="single">
       <h2>Retrieve Single Image</h2><br>
       <input type="datetime-local" id="single-input"><br>
       <button onclick="getImg()">Load Image</button>
     </section>
     <section id="multiple">
-      <h2>Retrieve Timelapse</h2>
+      <h2>Retrieve Timelapse Video</h2>
       <input type="date" id="timelapse-day"><br>
       <label for="startTime">From</label>
       <input type="time" id="startTime" oninput="$('endTime').focus()">
-      <label for="endTime">to</label>
-      <input type="time" id="endTime"><br>
+      <nobr><label for="endTime">to</label>
+      <input type="time" id="endTime"><br></nobr>
       <button onclick="getVid()">Load Timelapse</button>
     </section>
     <br><br>
