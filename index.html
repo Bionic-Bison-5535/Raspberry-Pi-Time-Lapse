@@ -167,7 +167,7 @@
       <h2>Retrieve Timelapse</h2>
       <input type="date" id="timelapse-day"><br>
       <label for="startTime">From</label>
-      <input type="time" id="startTime">
+      <input type="time" id="startTime" oninput="$('endTime').focus()">
       <label for="endTime">to</label>
       <input type="time" id="endTime"><br>
       <button onclick="getVid()">Load Timelapse</button>
