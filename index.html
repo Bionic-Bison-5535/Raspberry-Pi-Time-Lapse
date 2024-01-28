@@ -119,21 +119,21 @@
 
       function back() {
         vidIndex--;
-        if (vid[vidIndex].length > 0) {
-          $("img").src = vid[vidIndex];
-        }
         if (vidIndex < 0) {
           vidIndex = 0;
+        }
+        if (vid[vidIndex].length > 0) {
+          $("img").src = vid[vidIndex];
         }
       }
 
       function next() {
         vidIndex++;
-        if (vid[vidIndex].length > 0) {
-          $("img").src = vid[vidIndex];
-        }
         if (vidIndex >= vid.length) {
           vidIndex = vid.length - 1;
+        }
+        if (vid[vidIndex].length > 0) {
+          $("img").src = vid[vidIndex];
         }
       }
 
