@@ -2,7 +2,8 @@ const fs = require('fs');
 const http = require('http');
 const shell = require('shelljs');
 
-const directory = "/home/BisonPi/Desktop/Timelapse";
+const user = "BisonPi";
+const directory = "/home/" + user + "/Desktop/Timelapse";
 var RES;
 
 var normalDays = {
@@ -68,7 +69,7 @@ http.createServer(function (req, res) {
     }, 5000);
   } else {
     if (dir.length < 3) {
-      dir = "/home/pi/index.html";
+      dir = "/home/" + user + "/index.html";
     } else {
       dir = directory + dir;
     }
