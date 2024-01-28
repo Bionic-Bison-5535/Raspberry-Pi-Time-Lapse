@@ -69,10 +69,14 @@
           }
         };
       }
-      
+
       function getImg() {
         var input = $("single-input").value;
-        $("img").src = imgname(input);
+        img64(imgname(input), function(data) {
+          $("img").src = data;
+        }, function(stat) {
+          alert("The image you requested does not exist.\n\nERROR " + stat.toString());
+        });
       }
 
       function digits2(n) {
