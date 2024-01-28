@@ -88,7 +88,7 @@ http.createServer(function (req, res) {
     }
     if (dir.toLowerCase().indexOf("#start") != -1) {
       clearInterval(running);
-      var running = setInterval(function() {
+      running = setInterval(function() {
         if ((normalDays.list.includes(Date.call().slice(0,3)) && time.get() > time.a(normalDays) && time.get() < time.b(normalDays)) || (otherDays.list.includes(Date.call().slice(0,3)) && time.get() > time.a(otherDays) && time.get() < time.b(otherDays))) {
           photo();
         }
