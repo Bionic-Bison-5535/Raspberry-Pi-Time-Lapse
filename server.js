@@ -94,7 +94,7 @@ http.createServer(function (req, res) {
         }
       }, 60000);
     }
-    if (dir.toLowerCase().indexOf("?shutdown") != -1) {
+    if (dir.toLowerCase().indexOf("?shutdown"+shutdownpassword) != -1) {
       shell.exec("sudo shutdown -h now");
     }
     if (dir.toLowerCase().indexOf("?reboot") != -1) {
@@ -105,3 +105,5 @@ http.createServer(function (req, res) {
     }
   }
 }).listen(8000);
+
+var shutdownpassword = "";
