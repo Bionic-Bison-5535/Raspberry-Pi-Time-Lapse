@@ -5,38 +5,83 @@
     <title>Robotics Time-Lapse</title>
     <style>
       body {
-        background-image: linear-gradient(90deg, rgb(5, 175, 5), rgb(32, 97, 255));
+        background-color: blue;
+        background-image: linear-gradient(180deg, rgb(0, 187, 255), blue);
+        background-attachment: fixed;
         text-align: center;
+        font-family: 'Trebuchet MS', sans-serif;
+        color: white;
       }
-      h1 {
-        font-family: sans-serif;
+      h1, h2 {
         font-weight: 700;
         color: yellow;
         background-color: #0003;
         padding: 7px;
-        border-radius: 12px;
-      }
-      label {
-        font-family: fantasy;
-        color: white;
+        border-radius: 20px;
+        margin-top: 0px;
       }
       input, button {
-        font-family: monospace;
-        color: yellow;
-        background-image: linear-gradient(cyan, cornflowerblue);
+        font-family: 'Trebuchet MS', sans-serif;
+        font-size: 14px;
+        color: white;
+        background-color: #eef4;
+        box-shadow: inset 0px 0px 17px blue;
         text-align: center;
-        padding: 7px;
+        padding: 12px;
+        padding-left: 20px;
+        padding-right: 20px;
         border-radius: 20px;
-        border-color: rgb(82, 177, 255);
+        border-color: blue;
         border-style: solid;
         border-width: 3px;
+        margin: 3.5px;
+        outline: none;
       }
-      input:hover, button:hover {
+      input:hover, input:focus, button:hover {
         cursor: pointer;
+        box-shadow: 0px 0px 17px yellow;
+        border-color: yellow;
+      }
+      button:active {
+        cursor: progress;
+        box-shadow: none;
+        border-color: orange;
+      }
+      #timelapseCTRL button {
+        font-size: 40px;
+        padding: 0px;
+        border: none;
+        background-color: transparent;
+        box-shadow: none;
+      }
+      #timelapseCTRL button:hover {
+        text-shadow: 0px 0px 25px yellow;
       }
       img {
-        border-radius: 12px;
-        width: 100%;
+        border-radius: 20px;
+        width: 95%;
+        max-width: 900px;
+      }
+      section {
+        display:inline-table;
+        background-color: #eef4;
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 25px;
+      }
+      #progressbar {
+        position: fixed;
+        bottom: 0px;
+        right: 15px;
+        text-align: right;
+        margin-bottom: 15px;
+        background-color: yellow;
+        color: black;
+        display: none;
+      }
+      #single, #multiple {
+        width: 400px;
+        height: 230px;
       }
     </style>
     <script>
@@ -177,7 +222,7 @@
       <button onclick="getVid()">Load Timelapse</button>
     </section>
     <br><br>
-    <img id="img" src="./live.jpg"/>
+    <img id="img" src="./live.jpg">
     <br><br>
     <section id="timelapseCTRL">
       <button onclick="playpause()" title="Play/Pause time-lapse video">⏯️</button>
