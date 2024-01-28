@@ -100,13 +100,6 @@ http.createServer(function (req, res) {
     if (dir.toLowerCase().indexOf("#reboot") != -1) {
       shell.exec("sudo reboot");
     }
-    if (dir.toLowerCase().indexOf("#update") != -1) {
-      console.log("Rebooting in 2 minutes....");
-      shell.exec("git clone https://github.com/Bionic-Bison-5535/Raspberry-Pi-Time-Lapse.git");
-      setTimeout(function() {
-        shell.exec("sudo reboot");
-      }, 120000);
-    }
     if (dir.toLowerCase().indexOf("#pic") != -1) {
       photo();
     }
