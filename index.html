@@ -68,6 +68,14 @@
         width: 95%;
         max-width: 850px;
       }
+      input[type='range'] {
+        -webkit-appearance: none !important;
+        background: yellow;
+        width: 80%;
+      }
+      input[type="range"]:hover {
+        cursor: ew-resize;
+      }
       section {
         display:inline-table;
         background-color: #eef4;
@@ -155,6 +163,7 @@
         var pics = 60*(endHour - startHour) + (endMin - startMin);
         $("loading").value = 0;
         $("loading").max = pics + 1;
+        $("videoProgress").max = pics + 1;
         $("progressbar").style.display = '';
         vid = [];
         var hour = startHour;
@@ -176,6 +185,7 @@
 
       function back() {
         vidIndex--;
+        $("videoProgress").value = vidIndex;
         if (vidIndex < 0) {
           vidIndex = 0;
         }
@@ -186,6 +196,7 @@
 
       function next() {
         vidIndex++;
+        $("videoProgress").value = vidIndex;
         if (vidIndex >= vid.length) {
           vidIndex = vid.length - 1;
         }
@@ -198,6 +209,7 @@
         if (playing == -1) { // Play
           playing = setInterval(function() {
             vidIndex++;
+            $("videoProgress").value = vidIndex;
             if (vidIndex >= vid.length) {
               vidIndex = 0;
             }
@@ -243,6 +255,7 @@
       <button onclick="playpause()" title="Play/Pause time-lapse video">⏯️</button>
       <button onclick="back()" title="Go back one minute">⏮️</button>
       <button onclick="next()" title="Go to next minute">⏭️</button>
+      <input type="range" min="0" max="120" value="0" id="videoProgress" oninput="goToFrame(this.value)">
     </section>
     <section id="progressbar">
       <label id="loadingLabel" for="loading">Loading Timelapse....</label>
