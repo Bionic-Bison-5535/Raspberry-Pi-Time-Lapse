@@ -54,7 +54,6 @@ http.createServer(function (req, res) {
   var dir = req.url;
   if (dir == "/live.jpg") {
     photo("live");
-    res.writeHead(202);
     RES = res;
     setTimeout(function() {
       fs.readFile(directory + "/live.jpg", function (err, data) {
