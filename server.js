@@ -65,7 +65,7 @@ http.createServer(function (req, res) {
           RES.end(data);
         }
       });
-    }, 5000);
+    }, 3500);
   } else {
     if (dir.indexOf("/home") != -1) {
       dir = "/home/" + user + "/Raspberry-Pi-Time-Lapse/index.html";
