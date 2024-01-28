@@ -45,7 +45,6 @@
         border-color: yellow;
       }
       button:active {
-        cursor: progress;
         box-shadow: none;
         border-color: orange;
       }
@@ -166,7 +165,7 @@
         var pics = 60*(endHour - startHour) + (endMin - startMin);
         $("loading").value = 0;
         $("loading").max = pics + 1;
-        $("videoProgress").max = pics + 1;
+        $("videoProgress").max = pics;
         $("progressbar").style.display = 'inline-table';
         vid = [];
         var hour = startHour;
@@ -188,10 +187,10 @@
 
       function back() {
         vidIndex--;
-        $("videoProgress").value = vidIndex;
         if (vidIndex < 0) {
           vidIndex = 0;
         }
+        $("videoProgress").value = vidIndex;
         if (vid[vidIndex].length > 0) {
           $("img").src = vid[vidIndex];
         }
@@ -199,10 +198,10 @@
 
       function next() {
         vidIndex++;
-        $("videoProgress").value = vidIndex;
         if (vidIndex >= vid.length) {
           vidIndex = vid.length - 1;
         }
+        $("videoProgress").value = vidIndex;
         if (vid[vidIndex].length > 0) {
           $("img").src = vid[vidIndex];
         }
@@ -212,10 +211,10 @@
         if (playing == -1) { // Play
           playing = setInterval(function() {
             vidIndex++;
-            $("videoProgress").value = vidIndex;
             if (vidIndex >= vid.length) {
               vidIndex = 0;
             }
+            $("videoProgress").value = vidIndex;
             if (vid[vidIndex].length > 0) {
               $("img").src = vid[vidIndex];
             }
