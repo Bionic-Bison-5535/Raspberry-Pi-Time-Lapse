@@ -52,6 +52,7 @@
       #timelapseCTRL {
         width: 95%;
         max-width: 850px;
+        display: none;
       }
       #timelapseCTRL button {
         font-size: 40px;
@@ -134,6 +135,7 @@
         var input = $("single-input").value;
         img64(imgname(input), function(data) {
           $("img").src = data;
+          $("timelapseCTRL").style.display = 'none';
         }, function(stat) {
           alert("The image you requested does not exist.\n\nERROR " + stat.toString());
         });
@@ -151,6 +153,7 @@
         $("loading").value += 1;
         if ($("loading").value >= $("loading").max) {
           $("progressbar").style.display = 'none';
+          $("timelapseCTRL").style.display = '';
           playpause();
         }
       }
