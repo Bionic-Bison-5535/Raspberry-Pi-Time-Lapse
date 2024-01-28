@@ -153,7 +153,7 @@
         $("loading").value += 1;
         if ($("loading").value >= $("loading").max) {
           $("progressbar").style.display = 'none';
-          $("timelapseCTRL").style.display = '';
+          $("timelapseCTRL").style.display = 'inline-table';
           playpause();
         }
       }
@@ -167,7 +167,7 @@
         $("loading").value = 0;
         $("loading").max = pics + 1;
         $("videoProgress").max = pics + 1;
-        $("progressbar").style.display = '';
+        $("progressbar").style.display = 'inline-table';
         vid = [];
         var hour = startHour;
         var min = startMin;
@@ -261,7 +261,7 @@
       <input type="range" min="0" max="120" value="0" id="videoProgress" oninput="goToFrame(this.value)">
     </section>
     <section id="progressbar">
-      <label id="loadingLabel" for="loading">Loading Timelapse....</label>
+      <label id="loadingLabel" for="loading">Loading Timelapse.... </label>
       <progress id="loading" max="120" val="0"></progress>
     </section>
   </body>
