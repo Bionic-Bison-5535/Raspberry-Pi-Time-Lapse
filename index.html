@@ -35,44 +35,145 @@
       }
       img {
         border-radius: 12px;
+        width: 100%;
       }
     </style>
     <script>
-      function four(Num) {
-        var newNum = Num;
-        while (newNum.length < 4) {
-          newNum = "0" + newNum;
+
+      var months = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      var vid = [];
+      
+      function imgname(timeInput) {
+        return "./" + months[parseInt(timeInput.slice(5,7))] + "_" + timeInput.slice(8,10) + "_" + timeInput.slice(0,4) + "_" + timeInput.slice(11,13) + ":" + timeInput.slice(14,16) + ".jpg";
+      }
+
+      function $(elementID) {
+        return document.getElementById(elementID);
+      }
+
+      function img64(Url, Then = function(base64img){}, Err = function(statusCode){}) {
+        var x = new XMLHttpRequest();
+        x.open("GET", Url);
+        x.responseType = "blob";
+        x.send();
+        x.onload = function() {
+          if (this.status != 200) {
+            Err(this.status);
+          } else {
+            var reader = new FileReader();
+            reader.readAsDataURL(x.response); 
+            reader.onloadend = function() {
+              Then(reader.result);
+            };
+          }
+        };
+      }
+      
+      function getImg() {
+        var input = $("single-input").value;
+        $("img").src = imgname(input);
+      }
+
+      function digits2(n) {
+        if (n < 10) {
+          return "0" + n.toString();
+        } else {
+          return n.toString();
         }
-        return newNum;
       }
-      function refreshImg() {
-        document.getElementById("img").src = "http://10.10.230.89:7777/" + document.getElementById("weekDay").value + "/" + document.getElementById("name").value + four(document.getElementById("imgNumber").value.toString()) + ".jpg";
-        document.getElementById("openInNewTab").href = document.getElementById("img").src;
-        localStorage.imageName = document.getElementById("name").value;
-        localStorage.imageWeekDay = document.getElementById("weekDay").value;
-        localStorage.imageNumber = document.getElementById("imgNumber").value;
-      }
-      function init() {
-        if (localStorage.imageName != undefined) {
-          document.getElementById("name").value = localStorage.imageName;
-          document.getElementById("weekDay").value = localStorage.imageWeekDay;
-          document.getElementById("imgNumber").value = localStorage.imageNumber;
-          refreshImg();
+
+      function progress1() {
+        $("loading").value += 1;
+        if ($("loading").value >= $("loading").max) {
+          $("progressbar").display = 'none';
         }
       }
+
+      function getVid() {
+        var startHour = parseInt($("startTime").value.slice(0,2));
+        var startMin = parseInt($("startTime").value.slice(3,5));
+        var endHour = parseInt($("endTime").value.slice(0,2));
+        var endMin = parseInt($("endTime").value.slice(3,5));
+        var pics = 60*(endHour - startHour) + (endMin - startMin);
+        $("loading").value = 0;
+        $("loading").max = pics + 1;
+        $("progressbar").display = '';
+        vid = [];
+        var hour = startHour;
+        var min = startMin;
+        for (i=0; i<=pics; i++) {
+          vid[i] = imgname($("timelapse-day").value + "T" + digits2(hour) + ":" + digits2(min));
+          eval("img64(vid[i],function(data){vid["+i.toString()+"]=data;progress1()},function(){vid["+i.toString()+"]='';progress1()})");
+          min++;
+          if (min >= 60) {
+            min -= 60;
+            hour++;
+          }
+        }
+      }
+
+      var vidIndex = 0;
+      var playing = -1;
+      var fps = 5;
+
+      function back() {
+        vidIndex--;
+        if (vid[vidIndex].length > 0) {
+          $("img").src = vid[vidIndex];
+        }
+        if (vidIndex < 0) {
+          vidIndex = 0;
+        }
+      }
+
+      function next() {
+        vidIndex++;
+        if (vid[vidIndex].length > 0) {
+          $("img").src = vid[vidIndex];
+        }
+        if (vidIndex >= vid.length) {
+          vidIndex = vid.length - 1;
+        }
+      }
+
+      function playpause() {
+        if (playing == 0) { // Play
+          playing = setInterval(function() {next()}, 1000/fps);
+        } else {
+          clearInterval(playing);
+          playing = 0;
+        }
+      }
+
     </script>
   </head>
-  <body onload="init()">
+  <body>
     <h1>Time-Lapse Wireless Access</h1>
-    <label for="name">Timelapse Name: </label>
-    <input type="text" id="name" value="image" oninput="refreshImg()" size="10" title='The name of the timelapse images taken, not including the picture number.  Try "a" for week 1, "b" for week 2, and so on.'><br>
-    <label for="weekDay">Day of Week: </label>
-    <input type="text" id="weekDay" value="sat" oninput="refreshImg()" size="4" title='A three-letter abbreviation of a day of the week.  For example, type "wed" for the wednesday timelapse, "sat" for the saturday timelapse, and so on.'><br>
-    <label for="imgNumber">Image Number</label>
-    <input type="number" id="imgNumber" value="0" min="0" max="9000" oninput="refreshImg()" title='Which picture of the time lapse you are trying to get.  Each picture is in 4K, so it may take a few seconds to load.  Use "0" to get the first image in the time lapse, "1" to get the second, and so on.'><br>
-    <button onclick="refreshImg()">Refresh</button>
-    <a id="openInNewTab" href="" target="_blank"><button title="Click this button to open the photo below in a new tab that will allow you to easily zoom in on the image's details.">Open in New Tab</button></a>
+    <section>
+      <h2>Retrieve Single Image</h2>
+      <input type="datetime-local" id="single-input"><br>
+      <button onclick="getImg()">Load Image</button>
+    </section>
+    <section>
+      <h2>Retrieve Timelapse</h2>
+      <input type="date" id="timelapse-day"><br>
+      <label for="startTime">From</label>
+      <input type="time" id="startTime">
+      <label for="endTime">to</label>
+      <input type="time" id="endTime"><br>
+      <button onclick="getVid()">Load Timelapse</button>
+    </section>
     <br><br>
-    <img id="img" src="" onload="refreshImg()" width="100%"/><br><br>
+    <img id="img" src="./live.jpg"/>
+    <br><br>
+    <section id="timelapseCTRL">
+      <button onclick="back()">⏮️</button>
+      <button onclick="next()">⏭️</button>
+      <button onclick="playpause()">⏯️</button>
+    </section>
+    <section id="progressbar">
+      <label id="loadingLabel" for="loading">Loading Timelapse....</label>
+      <progress id="loading" max="120" val="0"></progress>
+    </section>
   </body>
 </html>
