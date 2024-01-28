@@ -104,7 +104,7 @@
         var min = startMin;
         for (i=0; i<=pics; i++) {
           vid[i] = imgname($("timelapse-day").value + "T" + digits2(hour) + ":" + digits2(min));
-          eval("img64(vid[i],function(data){vid["+i.toString()+"]=data;progress1()},function(){vid["+i.toString()+"]='';progress1()})");
+          eval("img64(vid["+i.toString()+"],function(data){vid["+i.toString()+"]=data;progress1()},function(){vid["+i.toString()+"]='';progress1()})");
           min++;
           if (min >= 60) {
             min -= 60;
@@ -138,11 +138,19 @@
       }
 
       function playpause() {
-        if (playing == 0) { // Play
-          playing = setInterval(function() {next()}, 1000/fps);
+        if (playing == -1) { // Play
+          playing = setInterval(function() {
+            vidIndex++;
+            if (vidIndex >= vid.length) {
+              vidIndex = 0;
+            }
+            if (vid[vidIndex].length > 0) {
+              $("img").src = vid[vidIndex];
+            }
+          }, 1000/fps);
         } else {
           clearInterval(playing);
-          playing = 0;
+          playing = -1;
         }
       }
 
