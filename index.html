@@ -86,7 +86,7 @@
       function progress1() {
         $("loading").value += 1;
         if ($("loading").value >= $("loading").max) {
-          $("progressbar").display = 'none';
+          $("progressbar").style.display = 'none';
         }
       }
 
@@ -98,7 +98,7 @@
         var pics = 60*(endHour - startHour) + (endMin - startMin);
         $("loading").value = 0;
         $("loading").max = pics + 1;
-        $("progressbar").display = '';
+        $("progressbar").style.display = '';
         vid = [];
         var hour = startHour;
         var min = startMin;
