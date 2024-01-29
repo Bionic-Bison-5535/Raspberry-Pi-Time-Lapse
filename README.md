@@ -59,3 +59,14 @@ Go to the home page (`yourip:8000/home`) and choose a date and time from the men
 ### To Watch a Timelapse Video
 Go to the home page (`yourip:8000/home`) and choose a date, a start time, and an end time from the menu in the "Retrieve Time-lapse Video" section.  Then click the "Load Time-lapse" button.  You will see a loading bar in the lower-right corner of the screen.  The website must retrieve and store all of the images in order to allow the video to play back at a reasonable speed.  By default, the video will play at a rate of 5 minutes per second.  You can use the pause/play button and the video progress slider at the bottom of the screen to control playback, or you can go through the images one at a time with the back/next buttons.<br><br>
 <img width="916" alt="Screenshot 2024-01-28 at 2 44 52 PM" src="https://github.com/Bionic-Bison-5535/Raspberry-Pi-Time-Lapse/assets/71152561/cb5e088d-e4ca-4897-90eb-bbfb304dafbe">
+
+## Table of URL Parameter Actions
+
+| URL Ending | Action | Additional Notes |
+| :-: | :-: | :-: |
+| `?pic` | Take a picture and save it | Picture will be saved as `Mmm_DD_YYYY_HH:MM.jpg`.  For example, a picture on January 1st of 2025 at 3:30pm would save as `Jan_01_2025_15:30.jpg`. |
+| `?stop` | Stop the timelapse recording system | No pictures will be taken unless you use the `?pic` parameter or resume the recording system with `?start`. |
+| `?start` | Resume the recording system | To be used after `?stop`.  Recording times will still apply as if the system had never been paused. |
+| `?reboot` | Reboots the Pi | |
+| `?shutdown` | Shuts down the Pi | To be used before unplugging the Pi. |
+| `?shutdownhello` | Shuts down the Pi | This is an example of how to shut down the Pi when the set shutdown password is `hello`, as set in line 109 of `server.js` |
