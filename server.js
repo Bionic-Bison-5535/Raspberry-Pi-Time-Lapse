@@ -2,7 +2,7 @@ const fs = require('fs');
 const http = require('http');
 const shell = require('shelljs');
 
-const user = "BisonPi";
+const user = "pi";
 const directory = "/home/" + user + "/Desktop/Timelapse";
 var RES;
 

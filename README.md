@@ -22,8 +22,9 @@ To set up this code to run on any Raspberry Pi with a Raspberry Pi Cam, simply f
    ```
    Please notice that if your username is not "pi" you should replace the "pi" in "/home/pi" with your username.
    Press `CTRL+o` and then `Enter` to save, and then `CTRL+x` to exit the nano editor.  Now the time-lapse software will automatically start whenever your Pi turns on.
-4. **SET USERNAME**<br> Open `server.js` from the folder `/home/pi/Raspberry-Pi-Time-Lapse/` with Text Editor and change "BisonPi" in [line 5](https://github.com/Bionic-Bison-5535/Raspberry-Pi-Time-Lapse/blob/main/server.js#L5) to whatever your username is.  Unless you have changed it, it should be the default "pi".  Save the file with `CTRL+s`; then reboot your Pi by going back the the terminal and entering `sudo reboot`.
-5. **ACCESS USER INTERFACE**<br> When your Pi finishes turning on, open a web browser such as Chrome in a device connected to the same wifi network and enter in the URL bar your IPv4 address and then an immediate `:8000/home`.  So, the URL should look something like this:
+4. **SET USERNAME**<br> If the username on your Pi is "pi", you can skip this step.  Otherwise, open `server.js` from the folder `/home/pi/Raspberry-Pi-Time-Lapse/` with Text Editor and change "pi" in [line 5](https://github.com/Bionic-Bison-5535/Raspberry-Pi-Time-Lapse/blob/main/server.js#L5) to whatever your username is.  Save the file with `CTRL+s`.
+5. **REBOOT PI**<br> Reboot the Pi by entering `sudo reboot` into the terminal.
+6. **ACCESS USER INTERFACE**<br> When your Pi finishes turning on, open a web browser such as Chrome in a device connected to the same wifi network and enter in the URL bar your IPv4 address and then an immediate `:8000/home`.  So, the URL should look something like this:
    ```
    http://192.168.1.82:8000/home
    ```
