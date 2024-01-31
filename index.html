@@ -228,7 +228,9 @@
       function goToFrame(frameNumber) {
         if (frameNumber >= 0 && frameNumber < vid.length) {
           vidIndex = frameNumber;
-          $("img").src = vid[vidIndex];
+          if (vid[vidIndex].length > 0) {
+            $("img").src = vid[vidIndex];
+          }
         }
       }
 
