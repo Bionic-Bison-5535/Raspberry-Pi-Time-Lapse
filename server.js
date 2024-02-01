@@ -24,7 +24,9 @@ var otherDays = {
 var time = {
   hour : parseInt(Date.call().slice(16,18)),
   minute : parseInt(Date.call().slice(19,21)),
-  get : 60*parseInt(Date.call().slice(16,18)) + parseInt(Date.call().slice(19,21)),
+  get : function() {
+    return 60*parseInt(Date.call().slice(16,18)) + parseInt(Date.call().slice(19,21));
+  },
   a : function(obj) {
     return (60*obj.startHour + obj.startMin);
   },
@@ -45,7 +47,7 @@ function photo(fileName = "") {
 }
 
 var running = setInterval(function() {
-  if ((normalDays.list.includes(Date.call().slice(0,3)) && time.get >= time.a(normalDays) && time.get <= time.b(normalDays)) || (otherDays.list.includes(Date.call().slice(0,3)) && time.get >= time.a(otherDays) && time.get <= time.b(otherDays))) {
+  if ((normalDays.list.includes(Date.call().slice(0,3)) && time.get() >= time.a(normalDays) && time.get() <= time.b(normalDays)) || (otherDays.list.includes(Date.call().slice(0,3)) && time.get() >= time.a(otherDays) && time.get() <= time.b(otherDays))) {
     photo();
   }
 }, 60000);
@@ -89,7 +91,7 @@ http.createServer(function (req, res) {
     if (req.url.toLowerCase().indexOf("?start") != -1) {
       clearInterval(running);
       running = setInterval(function() {
-        if ((normalDays.list.includes(Date.call().slice(0,3)) && time.get > time.a(normalDays) && time.get < time.b(normalDays)) || (otherDays.list.includes(Date.call().slice(0,3)) && time.get > time.a(otherDays) && time.get < time.b(otherDays))) {
+        if ((normalDays.list.includes(Date.call().slice(0,3)) && time.get() > time.a(normalDays) && time.get() < time.b(normalDays)) || (otherDays.list.includes(Date.call().slice(0,3)) && time.get() > time.a(otherDays) && time.get() < time.b(otherDays))) {
           photo();
         }
       }, 60000);
