@@ -1,11 +1,11 @@
 const fs = require('fs');
 const http = require('http');
 const shell = require('shelljs');
-
-const user = "pi";
-const directory = "/home/" + user + "/Desktop/Timelapse";
 var RES;
 
+// User-specific variables:
+const user = "pi";
+var shutdownpassword = "";
 var normalDays = {
   list : ["Mon", "Tue", "Wed", "Thu", "Fri"],
   startHour : 17,
@@ -40,9 +40,9 @@ var time = {
 
 function photo(fileName = "") {
   if (fileName == "") {
-    shell.exec("raspistill -o " + directory + "/" + time.name() + ".jpg");
+    shell.exec("raspistill -o /home/" + user + "/Desktop/Timelapse/" + time.name() + ".jpg");
   } else {
-    shell.exec("raspistill -o " + directory + "/" + fileName + ".jpg");
+    shell.exec("raspistill -o /home/" + user + "/Desktop/Timelapse/" + fileName + ".jpg");
   }
 }
 
@@ -58,7 +58,7 @@ http.createServer(function (req, res) {
     photo("live");
     RES = res;
     setTimeout(function() {
-      fs.readFile(directory + "/live.jpg", function (err, data) {
+      fs.readFile("/home/" + user + "/Desktop/Timelapse/live.jpg", function (err, data) {
         if (err) {
           RES.writeHead(204);
           RES.end();
@@ -72,7 +72,7 @@ http.createServer(function (req, res) {
     if (dir.indexOf("/home") != -1) {
       dir = "/home/" + user + "/Raspberry-Pi-Time-Lapse/index.html";
     } else {
-      dir = directory + dir;
+      dir = "/home/" + user + "/Desktop/Timelapse" + dir;
     }
     fs.readFile(dir, function (err, data) {
       if (err) {
@@ -107,5 +107,3 @@ http.createServer(function (req, res) {
     }
   }
 }).listen(8000);
-
-var shutdownpassword = "";
