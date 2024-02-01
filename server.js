@@ -55,9 +55,8 @@ var running = setInterval(function() {
 http.createServer(function (req, res) {
   var dir = req.url;
   if (dir == "/live.jpg") {
-    photo("live");
     RES = res;
-    setTimeout(function() {
+    shell.exec("raspistill -o /home/" + user + "/Desktop/Timelapse/" + fileName + ".jpg", function() {
       fs.readFile("/home/" + user + "/Desktop/Timelapse/live.jpg", function (err, data) {
         if (err) {
           RES.writeHead(204);
@@ -67,7 +66,7 @@ http.createServer(function (req, res) {
           RES.end(data);
         }
       });
-    }, 3500);
+    });
   } else {
     if (dir.indexOf("/home") != -1) {
       dir = "/home/" + user + "/Raspberry-Pi-Time-Lapse/index.html";
