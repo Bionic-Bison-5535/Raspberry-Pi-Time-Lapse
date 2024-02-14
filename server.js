@@ -20,6 +20,7 @@ var otherDays = {
   endHour : 15,
   endMin : 30
 }
+var lightMode = "incandescent"; // Use "fluorescent", "incandescent", or "sun", depending on lighting conditions.
 
 var time = {
   hour : parseInt(Date.call().slice(16,18)),
@@ -40,9 +41,9 @@ var time = {
 
 function photo(fileName = "") {
   if (fileName == "") {
-    shell.exec("raspistill -o /home/" + user + "/Desktop/Timelapse/" + time.name() + ".jpg");
+    shell.exec("raspistill -o /home/" + user + "/Desktop/Timelapse/" + time.name() + ".jpg -awb " + lightMode);
   } else {
-    shell.exec("raspistill -o /home/" + user + "/Desktop/Timelapse/" + fileName + ".jpg");
+    shell.exec("raspistill -o /home/" + user + "/Desktop/Timelapse/" + fileName + ".jpg -awb " + lightMode);
   }
 }
 
@@ -56,7 +57,8 @@ http.createServer(function (req, res) {
   var dir = req.url;
   if (dir == "/live.jpg") {
     RES = res;
-    shell.exec("raspistill -o /home/" + user + "/Desktop/Timelapse/" + fileName + ".jpg", function() {
+    shell.exec("raspistill -o /home/" + user + "/Desktop/Timelapse/" + fileName + ".jpg -awb " + lightMode);
+    setTimeout(function() {
       fs.readFile("/home/" + user + "/Desktop/Timelapse/live.jpg", function (err, data) {
         if (err) {
           RES.writeHead(204);
@@ -66,7 +68,7 @@ http.createServer(function (req, res) {
           RES.end(data);
         }
       });
-    });
+    }, 3000);
   } else {
     if (dir.indexOf("/home") != -1) {
       dir = "/home/" + user + "/Raspberry-Pi-Time-Lapse/index.html";
